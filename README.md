@@ -68,7 +68,7 @@ Acessa todos os cards.
             }
      
      
-## Captura de clientes [/integration/addStamps/]
+## Captura de clientes [/integration/addStamp]
 
 Endpoint para registro de captura de clientes
 
@@ -82,6 +82,7 @@ Endpoint para registro de captura de clientes
 - alt_birthday (string, optional) - Data de nascimento no padrão YYYY-MM-DD.
 - gender (string, optional) - Sexo do cliente, pode ser MALE, FEMALE ou OTHER.
 - nickname (string, optional) - Nome do cliente.
+- custom_segmentations (array, optional) - Array de identificadores de segmentação customizada.
 
 
 + request
@@ -89,7 +90,7 @@ Endpoint para registro de captura de clientes
     + Headers
     
             Token: Your token
-            Content-type: application/json
+            Content-type: application/x-www-form-urlencoded
     
     + Body
     
@@ -127,3 +128,43 @@ Endpoint para registro de captura de clientes
             {
                 "error": "token-not-found/token-invalid/invalid-parameters"
             }
+  
+## Segmentações personalizadas [/integration/getCustomSegmentations{?is_canceled}]
+
+Endpoint para consulta de segmentações personalizadas
+
++ Parameters
+
+    + is_canceled: false (boolean, optional) - Filtrar pelo status da segmentação personalizada.
+        + Default: `false`
+          
+### Consulta de segmentações personalizadas [GET]
+
++ request
+
+    + Headers
+    
+            Token: Your token
+            Content-type: application/json
+            
++ Response 200 (application/json)
+    
+    + Body
+
+            [
+                {
+                    "id": "-LXKYWPry1SUp7om20ts",
+                    "name": "Comprou Sorvete",
+                    "is_canceled": false
+                },
+                {
+                    "id": "-LXKuvQjj7Cq_kFysUzF",
+                    "name": "Campanha 2019",
+                    "is_canceled": false
+                },
+                {
+                    "id": "-LXsfZGeMYtrgo1ATTan",
+                    "name": "Comprou via Delivery",
+                    "is_canceled": true
+                }
+            ]
