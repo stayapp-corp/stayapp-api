@@ -22,7 +22,7 @@ Acessa todos os cards.
     + Headers
     
             Token: Your token
-            Content-type: application/json
+            Content-type: application/x-www-form-urlencoded
      
 
 + Response 200 (application/json)
@@ -30,7 +30,7 @@ Acessa todos os cards.
     
     + Body
     
-            {
+            [
                 "-Kv-QuesVKb5jH8SZ0lI": {
                     "description": "Descricao",
                     "franchise_id": "-L2L8rcJciDRLu5KcrR0",
@@ -41,7 +41,8 @@ Acessa todos os cards.
                     "name": "Financeira",
                     "needs_approval": false,
                     "stamp_objective": 1000,
-                    "stamp_type": "PERCENT"
+                    "stamp_type": "PERCENT",
+                    "id": "-LPkc174nq9e-lk5O3qT"
                 },
                 "-Kv2Y43Py5E5q4Yi1nYJ": {
                     "company_id": "xyz",
@@ -54,9 +55,10 @@ Acessa todos os cards.
                     "name": "10 pratos!",
                     "needs_approval": false,
                     "stamp_objective": 10,
-                    "stamp_type": "COUNT"
+                    "stamp_type": "COUNT",
+                    "id": "-Kv2Y43Py5E5q4Yi1nYJ"
                 }
-            }
+            ]
     
 
 + Response 400 (application/json)
@@ -145,7 +147,7 @@ Endpoint para consulta de segmentações personalizadas
     + Headers
     
             Token: Your token
-            Content-type: application/json
+            Content-type: application/x-www-form-urlencoded
             
 + Response 200 (application/json)
     
