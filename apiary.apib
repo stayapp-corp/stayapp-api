@@ -79,7 +79,7 @@ Busca a lista de cards cadastrados pela empresa. Pode ser utilizado para buscar 
 ## Captura de clientes [/integration/addStamp]
 Capturar (fidelizar) clientes na sua empresa.
 
-### Registrar uma captura de cliente (Fidelizar) [POST]
+### Registrar uma captura [POST]
 
 + Attributes
 
@@ -97,7 +97,6 @@ Capturar (fidelizar) clientes na sua empresa.
         Pode ser obtido através do endpoint "/integration/tickets [GET]"
 
     + buy_value (number, optional) - Valor da compra no estabelecimento.
-        <!--+ Default: 1-->
     
     + cod_desc (string, optional) -  Campo livre para o estabelecimento informar qualquer informação adicional da captura.
 
@@ -121,13 +120,12 @@ Capturar (fidelizar) clientes na sua empresa.
     + custom_segmentations (array, optional) - Array de identificadores de segmentação personalizada.
     
         Pode ser obtido através do endpoint "/integration/getCustomSegmentations [GET]"
-        
 
 + request
 
     + Headers
     
-            Token: Your token
+            Token: <Token Privado StayApp>
             Content-type: application/x-www-form-urlencoded
     
     + Body
@@ -185,7 +183,7 @@ Endpoint para consulta de segmentações personalizadas
 
     + Headers
     
-            Token: Your token
+            Token: <Token Privado StayApp>
             Content-type: application/x-www-form-urlencoded
             
 + Response 200 (application/json)
