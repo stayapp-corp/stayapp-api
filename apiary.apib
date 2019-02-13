@@ -9,10 +9,18 @@ A API do StayApp disponibiliza uma forma de capturar os seus clientes, acessar i
 
 https://api.stayapp.com.br/
 
+## Como obter token de acesso?
+
+Para obter os tokens públicos e privados que irão autenticar a sua requisição nesta API, você deve logar com um usuário com permissões administrativas na empresa que deseja integrar e acessar a página de integrações pelo menu de gerência (engrenagem).
+
+Após acessar a página de integração, clique no botão de gerar token da empresa a qual você deseja realizar a integração. É importante ressaltar que tokens privados são mostrados apenas uma única vez, então certifique-se de copia-lo no momento da sua criação, caso contrário será necessário gerar novos tokens.
+
+Cuidado ao gerar novamente tokens já existentes. No momento da geração de novos tokens, os antigos criados por você na mesma empresa são automaticamente revogados, tornando necessária a substituição dos mesmos.
+
+Os Tokens são objetos que ajudam a identificar um usuário em uma determinada empresa, logo, caso você faça uma integração e realize uma captura de cliente, o operador que irá constar nessa captura será o usuário que gerou o Token.
 
 ## Cards [/integration/tickets/]
-Acessa todos os cards.
-
+Busca a lista de cards cadastrados pela empresa. Pode ser utilizado para buscar o ID dos cards no momento de realizar a integração de captura de clientes.
 
 ### Listar cards [GET]
 
@@ -20,7 +28,7 @@ Acessa todos os cards.
 
     + Headers
     
-            Token: Your token
+            Token: <Token Privado StayApp>
             Content-type: application/x-www-form-urlencoded
      
 
@@ -67,24 +75,53 @@ Acessa todos os cards.
             {
                 "error": "token-invalid/token-not-found"
             }
-     
-     
-## Captura de clientes [/integration/addStamp]
 
-Endpoint para registro de captura de clientes
+## Captura de clientes [/integration/addStamp]
+Capturar (fidelizar) clientes na sua empresa.
 
 ### Registrar uma captura de cliente (Fidelizar) [POST]
 
-- number (number) - Número do cliente a ser fidelizado (DDI + DDD + numero).
-- amount (number) - Valor da fidelização (Ex: 1 unidade, 1 selo ou 100 reais).
-- ticket_id (string) - Identificador do card.
-- buy_value (string, optional) - Valor da compra no estabelecimento.
-- cod_desc (string, optional) -  Campo livre para o estabelecimento informar adicionar qualquer informação adicional da captura.
-- alt_birthday (string, optional) - Data de nascimento no padrão YYYY-MM-DD.
-- gender (string, optional) - Sexo do cliente, pode ser MALE, FEMALE ou OTHER.
-- nickname (string, optional) - Nome do cliente.
-- custom_segmentations (array, optional) - Array de identificadores de segmentação customizada.
++ Attributes
 
+    + number (string, required) - Número celular do cliente a ser fidelizado (DDI + DDD + numero).
+    
+        Exemplos válidos: +5562987776255, 556282998173
+    
+    + amount (number, required) - Valor da fidelização
+    
+        Caso o card não seja de valor de compra, o mesmo não permite que a fidelização ocorra com números quebrados,
+        fazendo com que o mesmo seja arredondado para baixo.
+    
+    + ticket_id (string, required) - Identificador do card
+    
+        Pode ser obtido através do endpoint "/integration/tickets [GET]"
+
+    + buy_value (number, optional) - Valor da compra no estabelecimento.
+        <!--+ Default: 1-->
+    
+    + cod_desc (string, optional) -  Campo livre para o estabelecimento informar qualquer informação adicional da captura.
+
+    + alt_birthday (string, optional) - Data de nascimento do cliente que está sendo capturado no padrão YYYY-MM-DD.
+    
+        Essa informação será mostrada na página do cliente, porém não sobrepondo a informação do cliente original caso
+        o mesmo tenha fornecido alguma após baixar o aplicativo.
+
+    + gender (string, optional) - Sexo do cliente que está sendo capturado.
+    
+        Valores disponíveis: [MALE, FEMALE, OTHER]
+        
+        Essa informação será mostrada na página do cliente, porém não sobrepondo a informação do cliente original caso
+        o mesmo tenha fornecido alguma após baixar o aplicativo.
+
+    + nickname (string, optional) - Nome do cliente que está sendo capturado.
+    
+        Essa informação será mostrada na página do cliente, porém não sobrepondo a informação do cliente original caso
+        o mesmo tenha fornecido alguma após baixar o aplicativo.
+
+    + custom_segmentations (array, optional) - Array de identificadores de segmentação personalizada.
+    
+        Pode ser obtido através do endpoint "/integration/getCustomSegmentations [GET]"
+        
 
 + request
 
@@ -103,7 +140,10 @@ Endpoint para registro de captura de clientes
                 "cod_desc": "mesa 22",
                 "alt_birthday": "1990-03-13",
                 "gender": "FEMALE",
-                "nickname": "Jeniffer"
+                "nickname": "Jeniffer",
+                "custom_segmentations": [
+                    "-LXKYWPry1SUp7om20ts"
+                ]
             }
           
 
