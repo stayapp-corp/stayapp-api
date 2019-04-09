@@ -207,3 +207,65 @@ Endpoint para consulta de segmentações personalizadas
                     "is_canceled": true
                 }
             ]
+
+## Progressão do cliente [/integration/getUserProgression{?number}]
+
+Busca os dados da progressão do cliente nos cards da empresa.
+
++ Parameters
+
+    + number: null (string, required) - Número celular do cliente que se deseja saber o progresso nos cards na empresa (DDI + DDD + numero).
+        
+### Buscar progressões do cliente na empresa [GET]
+    
++ request
+
+    + Headers
+    
+            Token: <Token Privado StayApp>
+            Content-type: application/x-www-form-urlencoded
+
++ Response 200 (application/json)
+
+    Número de telefone informado e token de autenticação são válidos
+    (Caso o cliente não participe da empresa, retornará um array vazio):
+    
+    + Body
+
+            [
+                {
+                    "ticket": {
+                        "company_id": "xyz",
+                        "description": "Descrição do card",
+                        "end_time": 1692759600000,
+                        "indication_text": "",
+                        "is_buy_value_enabled": false,
+                        "is_canceled": false,
+                        "is_cod_enabled": true,
+                        "is_public": true,
+                        "name": "Nome do card",
+                        "needs_approval": false,
+                        "stamp_objective": 10,
+                        "stamp_type": "COUNT",
+                        "start_time": 1534993200000,
+                        "id": "<id_do_card>",
+                        "image_url": "<url_da_imagem_do_card>"
+                    },
+                    "history": {
+                        "reached": 0,
+                        "stamping": 1,
+                        "used": 0
+                    }
+                }
+            ]
+            
+
++ Response 400 (application/json)
+
+    Dados obrigatórios invalidos, ou Token de integração invalido, ou não informado no header:
+    
+    + Body
+
+            {
+                "error": "token-not-found/token-invalid/invalid-parameters"
+            }
